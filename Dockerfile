@@ -3,10 +3,11 @@ FROM node:12.16.3-alpine
 # Create app directory
 WORKDIR /usr/src/app
 
-COPY server-package.json package.json
+COPY package.json package-desktop.json
 
 # Install app dependencies
 RUN set -x \
+    && cat package-desktop.json | grep -v electron > package.json \
     && apk add --no-cache --virtual .build-dependencies \
         autoconf \
         automake \
